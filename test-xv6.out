@@ -3,11 +3,12 @@ qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 
 xv6 kernel is booting
 
 init: starting sh
-$ trace 2048 tracetest
+trace 2048 tracetest
+$ 3: syscall getpid -> 3
+tracetest: parent antes do fork pid=3
 3: syscall getpid -> 3
- tracetest: parent antes do fork pid=3
-3: syscall getpid -> 3
- tracetest: parent depois do fork pid=3 child=4
+tracetest: parent d4: syscall getpid -> 4
 tracetest: child pid=4
+epois do fork pid=3 child=4
 tracetest: parent recebeu status=0
 $ 

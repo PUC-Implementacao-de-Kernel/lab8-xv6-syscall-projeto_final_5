@@ -125,6 +125,8 @@ found:
   p->pid = allocpid();
   p->state = USED;
 
+  p->trace_mask = 0;
+
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
     freeproc(p);
@@ -272,7 +274,6 @@ kfork(void)
   // Copy user memory from parent to child.
   if(uvmcopy(p->pagetable, np->pagetable, p->sz) < 0){
     freeproc(np);
-    np->trace_mask = p->trace_mask;
     release(&np->lock);
     return -1;
   }
@@ -302,7 +303,7 @@ kfork(void)
 
   acquire(&np->lock);
   np->state = RUNNABLE;
-  //np->trace_mask = p->trace_mask;
+  np->trace_mask = p->trace_mask;
   release(&np->lock);
 
   return pid;
