@@ -1,0 +1,13 @@
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 1 -nographic -global virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+init: starting sh
+$ trace 2048 tracetest
+3: syscall getpid -> 3
+ tracetest: parent antes do fork pid=3
+3: syscall getpid -> 3
+ tracetest: parent depois do fork pid=3 child=4
+tracetest: child pid=4
+tracetest: parent recebeu status=0
+$ 
